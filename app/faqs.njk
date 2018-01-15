@@ -1,181 +1,207 @@
 {% extends './templates/layout/doc.njk' %}
 
 {# S: 页面元数据 #}
-{% block documentTitle %}常见问题 - NexT 使用文档{% endblock %}
+{% block documentTitle %}FAQs - NexT Documentation{% endblock %}
 {% block pageName %}faqs{% endblock %}
 {# E: 页面元数据 #}
 
 {% block pageHeader %}
-  <i class="fa-life-ring fa"></i> 常见问题
+  <i class="fa-life-ring fa"></i> FAQs
 {% endblock %}
 
 
 {% block pageContent %}
   <p>
-    这里罗列的是 NexT Issues 中用户提问最频繁的问题。若你在这里无法找到问题的答案，
-    请访问 <a href="https://github.com/iissnan/hexo-theme-next/issues" target="_blank">NexT Issues</a>，
-    提交你的问题。
+    Here lists most commonly asked questions in NexT Issues by our users. If you fail to find corresponding solution to your problem,
+    please refer to <a href="https://github.com/iissnan/hexo-theme-next/issues" target="_blank">NexT Issues</a> and submit your issue.
   </p>
 
 
   <section data-folding="read-more">
-    <h2 id="read-more" class="page-header">如何设置「阅读全文」？</h2>
+    <h2 id="read-more" class="page-header">How to setup "Read more →"?</h2>
     <p>
-      在首页显示一篇文章的部分内容，并提供一个链接跳转到全文页面是一个常见的需求。
-      NexT 提供三种方式来控制文章在首页的显示方式。
-      也就是说，在首页显示文章的摘录并显示 <strong>阅读全文</strong> 按钮，可以通过以下方法：
+      Showing part of the content of a post in navigation page and provide a link to full content is a common used method in blogs.
+      NexT provides three methods for tuning how posts are showed in mainpage.
+      So, to make the <strong>Read more →</strong> button after the abstract of a post, you can follow one of the following:
     </p>
     <ol>
       <li>
-        在文章中使用 <code>&lt;!-- more --&gt;</code> 手动进行截断，Hexo 提供的方式
-        <span class="label label-success">推荐</span>
+        Use <code>&lt;!-- more --&gt;</code> to mark before which there's the starting part that's expected to be shown.
+        This is the method Hexo is providing support.
+        <span class="label label-success">Recommanded</span>
       </li>
       <li>
-        在文章的 <a href="https://hexo.io/docs/front-matter.html" target="_blank" rel="external">front-matter</a>
-        中添加 <code>description</code>，并提供文章摘录
+        Add <code>description</code> in <a href="https://hexo.io/docs/front-matter.html" target="_blank" rel="external">front-matter</a>
+        and provide abstract for that page.
       </li>
       <li>
-        <p>自动形成摘要，在 <span class="label label-info">主题配置文件</span> 中添加：</p>
+        <p>Generate abstract for the post automatically. Add below code in <span class="label label-info">Theme Configuration</span></p>
         {% code "yml" %}
           auto_excerpt:
             enable: true
             length: 150
         {% endcode %}
-        <p>默认截取的长度为 <code>150</code> 字符，可以根据需要自行设定</p>
+        <p>
+          As in above configuration, it uses the starting <code>150</code> characters for showing abstract;
+          you can adjust it to meet your need.
+        </p>
       </li>
     </ol>
     <div class="bs-callout bs-callout-info">
-      建议使用 <code>&lt;!-- more --&gt;</code>（即第一种方式），除了可以精确控制需要显示的摘录内容以外，
-      这种方式也可以让 Hexo 中的插件更好的识别。
+      The <code>&lt;!-- more --&gt;</code> method is recommanded (a.k.a. the first one). While this method provides you capability for
+      controlling over the abstract, it's also better for plugins of Hexo to recognize.
     </div>
   </section>
 
 
   <section data-folding="favicon">
-    <h2 id="favicon" class="page-header">Favicon 设置后没有生效？</h2>
-    <p>
-      将你的 <code>favicon</code> 放置到 <strong>站点</strong> 的 <code>source</code>
-      目录下，与站点的配置文件同级。
-      若你发现设置的 Favicon 并未生效，请先清除浏览器的缓存后直接访问 Favicon 的地址，这个地址通常是
-      <code>http://your-domain.com/favicon.ico</code>。
-    </p>
-    <p class="bs-callout bs-callout-warning">
-      如果你的站点是放在子目录下，请设置为：<code>favicon: favicon.ico</code>
-    </p>
+    <h2 id="favicon" class="page-header">Favicon does not apply after setting?</h2>
+    <p>Follow the instruction in <span class="label label-info">Theme Configuration</span>, as below:</p>
+    {% code "yml"%}
+      # To get or check favicons visit: https://realfavicongenerator.net
+      # Put your favicons into `hexo-site/source/` (recommend) or `hexo-site/themes/next/source/images/` directory.
+
+      # Default NexT favicons placed in `hexo-site/themes/next/source/images/` directory.
+      # And if you want to place your icons in `hexo-site/source/` root directory, you must remove `/images` prefix from pathes.
+
+      # For example, you put your favicons into `hexo-site/source/images` directory.
+      # Then need to rename & redefine they on any other names, otherwise icons from Next will rewrite your custom icons in Hexo.
+      favicon:
+        small: /images/favicon-16x16-next.png
+        medium: /images/favicon-32x32-next.png
+        apple_touch_icon: /images/apple-touch-icon-next.png
+        safari_pinned_tab: /images/logo.svg
+        #android_manifest: /images/manifest.json
+        #ms_browserconfig: /images/browserconfig.xml
+    {% endcode %}
+    <p>That's to say, you can simply place your favicon in <code>hexo-site/source</code> and change the favicon configuration to</p>
+    {% code "yml"%}
+      favicon:
+        small: /favicon-16x16-next.png
+        medium: /favicon-32x32-next.png
+        apple_touch_icon: /apple-touch-icon-next.png
+        safari_pinned_tab: /logo.svg
+        #android_manifest: /manifest.json
+        #ms_browserconfig: /browserconfig.xml
+    {% endcode %}
   </section>
 
 
   <section data-folding="custom-font">
-    <h2 id="custom-font" class="page-header">如何更改字体？</h2>
+    <h2 id="custom-font" class="page-header">How to customize fonts?</h2>
     <p>
-      NexT 从 <strong>5.0.1</strong> 版本开始提供一个 <a href="/theme-settings.html#fonts-customization">字体定制特性</a>，
-      请先查看此特性是否能满足你的需求。以下的修改将覆盖 字体定制 的特性。
-      编辑主题下的 <code>source/css/_variables/custom.styl</code> 文件，新增两个变量：
+      Since version <strong>5.0.1</strong>, NexT provides a new feature on<a href="/theme-settings.html#fonts-customization">fonts customization</a>.
+      Please check for this feature before deciding to make the changes below;
+      making the following changes will overwrite the "fonts customization" configuration.
     </p>
+    <p>You can modify <code>source/css/_variables/custom.styl</code> in NexT theme directory and add the following:</p>
     {% code "styl" %}
-      // 标题，修改成你期望的字体族
+      // Font families for heading texts
       $font-family-headings = Georgia, sans
 
-      // 修改成你期望的字体族
+      // Base font families
       $font-family-base = "Microsoft YaHei", Verdana, sans-serif
 
-      // 代码字体
+      // Font families for codes
       $code-font-family = "Input Mono", "PT Mono", Consolas, Monaco, Menlo, monospace
 
-      // 正文字体的大小
+      // Font size for normal text
       $font-size-base = 16px
 
-      // 代码字体的大小
+      // Font size for codes
       $code-font-size = 13px
     {% endcode %}
   </section>
 
 
   <section data-folding="custom-content-width">
-    <h2 id="custom-content-width" class="page-header">如何更改内容区域的宽度？</h2>
-    <p>NexT 对于内容的宽度的设定如下：</p>
+    <h2 id="custom-content-width" class="page-header">How to alter the width of content?</h2>
+    <p>NexT defaults the width according to following rules:</p>
     <ul>
-      <li>700px，当屏幕宽度 < 1600px </li>
-      <li>900px，当屏幕宽度 >= 1600px</li>
-      <li>移动设备下，宽度自适应</li>
+      <li>700px when screen width less than 1600px .</li>
+      <li>900px when screen width more than or equal to 1600px.</li>
+      <li>Self-adjusted on mobile devices.</li>
     </ul>
     <p>
-      如果你需要修改内容的宽度，同样需要编辑样式文件。
-      编辑主题的 <code>source/css/_variables/custom.styl</code> 文件，新增变量：
+      If you want to alter this config, you'll need to modify the styles source.
+      Modify file <code>source/css/_variables/custom.styl</code> in NexT theme directory and add the following:
     </p>
     {% code "styl" %}
-      // 修改成你期望的宽度
+      // Change to expected content width when screen narrower than 1600px
       $content-desktop = 700px
 
-      // 当视窗超过 1600px 后的宽度
+      // Change to expected content width when screen wider than 1600px
       $content-desktop-large = 900px
     {% endcode %}
     <p class="bs-callout bs-callout-warning">
-      此方法不适用于 Pisces Scheme，关于如何修改 Pisces Scheme 的宽度请参看
-      <a href="https://github.com/iissnan/hexo-theme-next/issues/759#issuecomment-202242848">这个 Issue</a>
+      This method does not apply to Pisces Scheme. To modify the content width of Pisces Scheme, please refer to
+      <a href="https://github.com/iissnan/hexo-theme-next/issues/759#issuecomment-202242848">this issue</a>.
     </p>
   </section>
 
   <section data-fodling="setting-menu">
-    <h2 id="setting-menu" class="page-header">为何新增的菜单项显示 Menu.xxx</h2>
+    <h2 id="setting-menu" class="page-header">Why newly created menu items shows as Menu.xxx</h2>
     <p>
-      NexT 使用了 Hexo 提供的国际化功能，因此在 Menu 部分配置的值并非直接用于界面的展示，而是作为一个名称。
-      当渲染的时候，NexT 去寻找对应的语言文件，并替换这个键所定义的文本后展示。
+      NexT makes use of Hexo's I18n functionality, thus the provided value in menu configuration is not used directly
+      in UI presenting but a key to the actual text as in the language file.
+      When rendering, NexT will look for the language file and replace the key with found corresponding value.
     </p>
 
     <p>
-      以 <code>home</code> 为例，在
-      <span class="label label-info">主题配置文件</span> 中配置为 <code>home: /</code>，
-      此处的键即是 <code>home</code>，在不同的语言中，这个键所对应的文本都不同：
+      Take the <code>menu.home</code> configuration as an example.
+      It's set to <code>home: /</code> (ignoring icon) in <span class="label label-info">Theme Configuration</span>,
+      in which the key for localized entry is <code>home</code>. In different languages, this key maps to different text:
     </p>
     {% code "yml"%}
-      # 简体中文
-      # 语言文件 languages/zh-Hans.yml
+      # zh-Hans in language file `languages/zh-Hans.yml`
       menu:
         home: 首页
 
-      # 英文
-      # 语言文件 languages/en.yml
+      # en in language file `languages/en.yml`
       menu:
         home: Home
     {% endcode %}
 
-    <p>因此，当新增一个项时，必须在 <strong>所使用的语言</strong> 中添加对应的翻译文本。</p>
+    <p>
+      Thus, if you want to add an new item in the menu,
+      you'll have to add an entry in the language file for at least your <strong>current language</strong>.
+    </p>
 
     <p class="bs-callout bs-callout-success">
-      关于菜单的配置，请参考 <a href="/getting-started.html#menu-settings">菜单的配置</a>
+      For configuring menu items, see <a href="/getting-started.html#menu-settings">menu settings</a>.
     </p>
   </section>
 
   <section data-folding="count-incorrect-for-tags-categories">
-    <h2 id="count-incorrect-for-tags-categories">标签/分类数量统计不准确？</h2>
+    <h2 id="count-incorrect-for-tags-categories" class="page-header">Tags/Categories count not accurate?</h2>
     <p>
-      因为 Hexo 有缓存的功能，因此有时候你会发现在 标签 和 分类 页面中的数量统计并不准确。
-      出现这个问题时，可以按照以下步骤重新生成站点的内容：
+      Since Hexo have abilities for caching the site, you may sometimes face with inaccurate counters in Tags and Categories pages.
+      If you're facing with this problem, you can follow these steps to regenerate the site:
     </p>
     <ol>
-      <li>删除站点目录下的 <code>db.json</code> 文件</li>
-      <li>在站点目录下执行命令 <code>hexo clean</code></li>
-      <li>在站点目录下执行命令，重新生成 <code>hexo generate</code></li>
+      <li>Delete <code>db.json</code> placed under the root directory of your site.</li>
+      <li>Execute command <code>hexo clean</code> in your site repo to clean everything up.</li>
+      <li>Execute command <code>hexo generate</code> in your site repo to generate site.</li>
     </ol>
-    <p>当执行完以上步骤后，可以在本地启动服务器来验证下是否已经解决问题。</p>
+    <p>After finishing these steps, you may launch a server locally for test.</p>
   </section>
 
 
   <section data-fodling="incorrect-language">
-    <h2 id="incorrect-language" class="page-header">为何语言显示不正确？</h2>
+    <h2 id="incorrect-language" class="page-header">Why the language in use is not what I expecting?</h2>
     <p>
-      若没有设定 <code>language</code> 的值或者 <code>language: default</code>，会出现语言选择不正确的情况。
-      因此为了确保语言正确显示，请明确指定需要使用的语言。
-      编辑 <span class="label label-primary">站点配置文件</span>， 将 <code>language</code> 字段设置成明确的语言代码。
-      例如，设置语言为简体中文：
+      If the value of <code>language</code> is not set or is set to <code>language: default</code>,
+      unexpected language might be chosen. To make sure your primary language shows in the site,
+      you need to explicitly set your language.
+      To do this, edit <span class="label label-primary">Site Configuration</span> and set <code>language</code>
+      entry to your primary language. E.g., to set language as English:
     </p>
-    {% code "yml" %}language: zh-Hans{% endcode %}
+    {% code "yml" %}language: en{% endcode %}
     <table class="table table-bordered">
       <thead>
       <tr>
-        <th>语言</th>
-        <th>对应值</th>
+        <th>Language</th>
+        <th>Corresponded Language Name</th>
       </tr>
       </thead>
       <tr>
@@ -187,27 +213,27 @@
         <td><code>zh-Hans</code></td>
       </tr>
       <tr>
-        <td>法语</td>
+        <td>Français</td>
         <td><code>fr-FR</code></td>
       </tr>
       <tr>
-        <td>繁体中文</td>
+        <td>繁體中文</td>
         <td><code>zh-hk</code>/<code>zh-tw</code></td>
       </tr>
       <tr>
-        <td>俄语</td>
+        <td>Русский язык</td>
         <td><code>ru</code></td>
       </tr>
       <tr>
-        <td>德语</td>
+        <td>Deutsch</td>
         <td><code>de</code></td>
       </tr>
       <tr>
-        <td>葡萄牙语</td>
+        <td>Português</td>
         <td><code>pt</code></td>
       </tr>
       <tr>
-        <td>日语</td>
+        <td>日本語</td>
         <td><code>ja</code></td>
       </tr>
     </table>
@@ -215,10 +241,10 @@
 
 
   <section data-fodling="incorrect-language">
-    <h2 id="setting-page-comments" class="page-header">如何关闭新建页面的评论功能？</h2>
+    <h2 id="setting-page-comments" class="page-header">How to disable comments in new posts?</h2>
     <p>
-      当集成了评论系统，如 Disqus，所有新建的页面都将自动开启评论。若你不需要评论，请在页面的 Front-matter 里添加
-      <code>comments</code> 字段，并将值设置为 <code>false</code>。如下所示：
+      When integrated some comment system like Disqus, all newly added post will have comments enabled.
+      If you don't want this in some post, add an <code>comments: false</code> entry in the front-matter of the post. For example,
     </p>
     {% code "md" %}
       title: All tags
@@ -231,11 +257,14 @@
 
 
   <section data-fodling="incorrect-language">
-    <h2 id="setting-page-size" class="page-header">如何设置页面文章的篇数？</h2>
-    <p>在 Hexo 里可以为首页和归档页面设置不同的文章篇数，但可能需要安装 Hexo 插件。详细步骤如下。</p>
+    <h2 id="setting-page-size" class="page-header">How to set posts per page in the pages?</h2>
+    <p>
+      In Hexo we can set posts per page apparently for <code>home</code>, <code>archive</code> and <code>tags</code> pages.
+      However, this will need extra Hexo plugins. Follow instructions below:
+    </p>
     <ol>
       <li>
-        <p>使用 <code>npm install --save</code> 命令来安装需要的 Hexo 插件。</p>
+        <p>Execute <code>npm install --save</code> commands to install required hexo plugins.</p>
         {% code %}
           npm install --save hexo-generator-index
           npm install --save hexo-generator-archive
@@ -243,7 +272,7 @@
         {% endcode %}
       </li>
       <li>
-        <p>等待扩展全部安装完成后，在 <strong>站点配置文章</strong> 中，设定如下选项：</p>
+        <p>After plugins installed, add the following settings in <span class="label label-primary">Site Configuration</span>:</p>
         {% code "yml" %}
           index_generator:
             per_page: 5
@@ -257,23 +286,23 @@
             per_page: 10
         {% endcode %}
 
-        <code>per_page</code> 即文章的数量。
+        <code>per_page</code> specifies posts per page expected to be shown.
       </li>
     </ol>
     <p class="bs-callout bs-callout-warning">
-      需要注意的是，Hexo 3.2 版本不允许配置文件中存在重复的选项设置。
-      因此，最好检查下 <span class="label label-primary">站点配置文件</span> 中是否有存在上述同名的配置。
-      如果存在，请将两者配置在一起。
+      Caution: Hexo 3.2 does not allow duplicate entrys in configuration files.
+      So check for previously existing settings in <span class="label label-primary">Site Configuration</span> before adding those entries.
+      If there is such setting entries, you'll need to merge your new settings into those manually.
     </p>
   </section>
 
 
   <section data-fodling="incorrect-language">
-    <h2 id="optimize" class="page-header">如何优化 NexT 主题？</h2>
+    <h2 id="optimize" class="page-header">How to compress NexT files?</h2>
     <p>
-      NexT 并未对 HTML、JavaScript 以及 CSS 做压缩处理。如果你比较在意这点，可以在 NexT 的 Issues 列表搜索
+      NexT does not compress its HTML, JavaScript and CSS files. If you do care about this, please refer to
       <a href="https://github.com/iissnan/hexo-theme-next/issues?utf8=%E2%9C%93&q=+label%3AOptimization">
-        他人共享的优化方案
+        solutions by others.
       </a>。
     </p>
   </section>
@@ -281,15 +310,20 @@
   <section data-fodling="module-not-found">
     <h2 id="module-not-found" class="page-header">Cannot find module XXX</h2>
     <p>
-      NexT 提供的标签插件引用了 Hexo 模块中的一些子模块，例如 <code>hexo-util</code>。
-      NPM 在版本 3 中引入了新的模块安装机制， NexT 将使用这种机制，意味着如果是旧的 NPM 将会碰到这个错误。
-      因此，如果您碰到 "Cannot find module XXX" 的错误时，请首先使用 <code>npm -v</code> 确认您的 NPM 版本。
+      NexT's tags plugin makes use of several submodules of Hexo, e.g. <code>hexo-util</code>.
+      NPM introduced new module installation mechanics since version 3, which is relied on by NexT.
+      That's to say, you'll face with this problem if you're using NPM of versions previous to 3.
+      Once this error occurred, check your NPM version with <code>npm -v</code> first.
     </p>
     <ul>
-      <li>版本 > 3 依然报错： 请先删除 <code>node_module</code> 目录，然后使用 <code>npm install</code> 重新安装一下模块。</li>
       <li>
-        版本 < 3： 您可以选择升级您的 NPM； 或者在站点目录下明确指定模块依赖 <code>npm install --save hexo-util</code>。
-        其中 `hexo-util` 仅是示例，请替换成错误中提示的模块名称。
+        Error occurs with version later than 3:
+        Remove <code>node_module</code> directory first, then execute <code>npm install</code> to reinstall NPM modules.
+      </li>
+      <li>
+        Error occurs with version previous to 3:
+        Update your NPM, or execute command <code>npm install --save hexo-util</code> to add dependencies manually.
+        <code>hexo-util</code> is only an example, you'll need to replace it with all the modules missing, as is reported in the error message.
       </li>
     </ul>
   </section>
@@ -299,16 +333,16 @@
 
 {% block pageSidebar %}
   <ul>
-    <li><a href="#read-more">如何设置「阅读全文」？</a></li>
-    <li><a href="#favicon">Favicon 设置后没有生效？</a></li>
-    <li><a href="#custom-font">如何更改字体？</a></li>
-    <li><a href="#custom-content-width">如何更改内容区域的宽度？</a></li>
-    <li><a href="#setting-menu">为何新增的菜单项显示 Menu.xxx</a></li>
-    <li><a href="#count-incorrect-for-tags-categories">标签/分类数量统计不准确？</a></li>
-    <li><a href="#incorrect-language">为何语言显示不正确？</a></li>
-    <li><a href="#setting-page-comments">如何关闭新建页面的评论功能？</a></li>
-    <li><a href="#setting-page-size">如何设置页面文章的篇数？</a></li>
-    <li><a href="#optimize">如何优化 NexT 主题？</a></li>
-    <li><a href="#module-not-found">Cannot find module</a></li>
+    <li><a href="#read-more">How to setup "Read more →"?"?</a></li>
+    <li><a href="#favicon">Favicon does not apply after setting??</a></li>
+    <li><a href="#custom-font">How to customize fonts?</a></li>
+    <li><a href="#custom-content-width">How to alter the width of content?</a></li>
+    <li><a href="#setting-menu">Why newly created menu items shows as Menu.xxx</a></li>
+    <li><a href="#count-incorrect-for-tags-categories">Tags/Categories count not accurate?</a></li>
+    <li><a href="#incorrect-language">Why the language in use is not what I expecting?</a></li>
+    <li><a href="#setting-page-comments">How to disable comments in new posts?</a></li>
+    <li><a href="#setting-page-size">How to set posts per page in the pages?</a></li>
+    <li><a href="#optimize">How to compress NexT files?</a></li>
+    <li><a href="#module-not-found">Cannot find module XXX</a></li>
   </ul>
 {% endblock %}
